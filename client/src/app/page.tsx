@@ -15,8 +15,9 @@ import {
   ERSB_pending,
   ERSB_teen,
   ERSB_adults_only,
-} from "@/components/esrb/images";
+} from "@/components/esrb/images_esrb";
 import Image from "next/image";
+import GamePlatforms from "@/components/platforms/plataforms";
 
 // Define types for the game data
 interface Game {
@@ -201,11 +202,7 @@ export default function GameSearch() {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2">Plataformas</h3>
-                <ul className="list-disc list-inside mb-4">
-                  {game.platforms.map((p) => (
-                    <li key={p.platform.name}>{p.platform.name}</li>
-                  ))}
-                </ul>
+                <GamePlatforms platforms={game.platforms} />
                 <h3 className="text-xl font-semibold mb-2">Disponível Em</h3>
                 <ul className="list-disc list-inside mb-4">
                   {game.stores.map((s) => (
@@ -215,9 +212,10 @@ export default function GameSearch() {
                 <h3 className="text-xl font-semibold mb-2">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   {game.tags
-                    .filter((tag) => tag.language !== "rus") // Ajuste a condição conforme necessário
+                    .filter((tag) => tag.language !== "rus")
+                    .slice(0, 10) 
                     .map((tag) => (
-                      <Badge key={tag.name} variant="outline" className="border-white/50">
+                      <Badge key={tag.name} variant="outline" className="hover:bg-accent/50 border-white/50">
                         {tag.name}
                       </Badge>
                     ))}
